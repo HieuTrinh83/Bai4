@@ -8,9 +8,20 @@ namespace DemCuu.Models
 {
     public class Sheep
     {
+        public Sheep()
+        {
+            
+        }
+
+        public Sheep(float _khoiLuong, int _color, float _khoiLuongLong)
+        {
+            KhoiLuong = _khoiLuong;
+            ColorIdx = _color;
+            KhoiLuongLong = _khoiLuongLong;
+        }
 
         public float KhoiLuong { get; set; }
-        public int Color { get; set; }
+        public int ColorIdx { get; set; }
         public float KhoiLuongLong { get; set; }
 
     }

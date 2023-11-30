@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formBai4));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnLuuExcel = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.txtSoluong = new System.Windows.Forms.TextBox();
@@ -59,6 +60,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnLuuExcel);
             this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.Controls.Add(this.txtSoluong);
@@ -69,6 +71,16 @@
             this.groupBox1.Size = new System.Drawing.Size(483, 53);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // btnLuuExcel
+            // 
+            this.btnLuuExcel.Location = new System.Drawing.Point(293, 15);
+            this.btnLuuExcel.Name = "btnLuuExcel";
+            this.btnLuuExcel.Size = new System.Drawing.Size(75, 23);
+            this.btnLuuExcel.TabIndex = 5;
+            this.btnLuuExcel.Text = "Lưu Excel";
+            this.btnLuuExcel.UseVisualStyleBackColor = true;
+            this.btnLuuExcel.Click += new System.EventHandler(this.btnLuuExcel_Click);
             // 
             // btnStop
             // 
@@ -288,6 +300,7 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.ImageList iconIML;
         private System.Windows.Forms.PictureBox pbSheepColor;
+        private System.Windows.Forms.Button btnLuuExcel;
     }
 }
 

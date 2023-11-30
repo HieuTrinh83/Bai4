@@ -1,7 +1,11 @@
-﻿using System;
+﻿using DemCuu.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
-using System.Timers;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DemCuu
 {
@@ -14,6 +18,9 @@ namespace DemCuu
         private const int BLACK_IDX = 0;
         private const int WHITE_IDX = 1;
         private const int GRAY_IDX = 2;
+        private List<string> dsColor = new List<string> { "black", "white", "gray" };
+
+        private List<Sheep> dsSheep = new List<Sheep>();
 
         public formBai4()
         {
@@ -55,9 +62,13 @@ namespace DemCuu
                         _tyLeLong = r.Next(3, 8);
                         _mauIdx = r.Next(0, 3);
 
-                        lblKhoiLuong.Text = _khoiLuong.ToString();
-                        lblKhoiLuongLong.Text = ((_khoiLuong * _tyLeLong) / 100.0).ToString();
-                        pbSheepColor.Image = iconIML.Images[_mauIdx];
+                        float khoiLuongLong = (float)(_khoiLuong * _tyLeLong) / 100;
+                        var sheep = new Sheep(_khoiLuong, _mauIdx, khoiLuongLong);
+                        dsSheep.Add(sheep);
+
+                        lblKhoiLuong.Text = sheep.KhoiLuong.ToString();
+                        lblKhoiLuongLong.Text = sheep.KhoiLuongLong.ToString();
+                        pbSheepColor.Image = iconIML.Images[sheep.ColorIdx];
 
                         if (!isPlaying || soLuong == dem)
                         {
@@ -91,6 +102,56 @@ namespace DemCuu
             btnStop.Enabled = false;
             thrdDemCuu.Abort(100);
             thrdDemCuu.Join();
+        }
+
+        private void btnLuuExcel_Click(object sender, EventArgs e)
+        {
+            Excel.Application excelApp = new Excel.Application();
+            var now = DateTime.Now;
+            var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+            var junkName = $"{now.Year}{now.Month}{now.Day}{now.Hour}{now.Minute}{now.Second}";
+            if (excelApp != null)
+            {
+
+                Excel.Workbook excelWorkbook = excelApp.Workbooks.Add();
+                Excel.Worksheet excelWorksheet = (Excel.Worksheet)excelWorkbook.Sheets["sheet1"];
+
+                excelWorksheet.Columns[1].ColumnWidth = 7;
+                excelWorksheet.Columns[2].ColumnWidth = 15;
+                excelWorksheet.Columns[3].ColumnWidth = 20;
+
+                excelWorksheet.Cells[1, 1] = "STT";
+                excelWorksheet.Cells[1, 2] = "Khối Lượng";
+                excelWorksheet.Cells[1, 3] = "Khối Lượng Lông";
+
+                int colorIdx = 0;
+                foreach (var mausac in dsColor) {
+                    int idx = 1;
+                    var dsTemp = dsSheep.Where(o => o.ColorIdx == colorIdx).ToList();
+                    foreach (var item in dsTemp)
+                    {
+                        idx++;
+                        excelWorksheet.Cells[idx, 1] = idx - 1;
+                        excelWorksheet.Cells[idx, 2] = item.KhoiLuong;
+                        excelWorksheet.Cells[idx, 3] = item.KhoiLuongLong;
+                    }
+                    colorIdx++;
+                    var fileName = $"{currentDirectory}/{mausac}_{junkName}";
+                    excelApp.ActiveWorkbook.SaveAs(fileName, Excel.XlFileFormat.xlWorkbookNormal);
+                }
+
+                //White
+                
+
+                excelWorkbook.Close();
+                excelApp.Quit();
+
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelWorksheet);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelWorkbook);
+                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelApp);
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
         }
     }
 }
