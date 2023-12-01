@@ -20,7 +20,9 @@ namespace DemCuu
         private const int GRAY_IDX = 2;
         private List<string> dsColor = new List<string> { "black", "white", "gray" };
 
-        private List<Sheep> dsSheep = new List<Sheep>();
+        private List<Sheep> dsWhite = new List<Sheep>();
+        private List<Sheep> dsBlack = new List<Sheep>();
+        private List<Sheep> dsGray = new List<Sheep>();
 
         public formBai4()
         {
@@ -64,7 +66,20 @@ namespace DemCuu
 
                         float khoiLuongLong = (float)(_khoiLuong * _tyLeLong) / 100;
                         var sheep = new Sheep(_khoiLuong, _mauIdx, khoiLuongLong);
-                        dsSheep.Add(sheep);
+                        switch (_mauIdx)
+                        {
+                            case WHITE_IDX:
+                                dsWhite.Add(sheep);
+                                break;
+                            case BLACK_IDX:
+                                dsBlack.Add(sheep);
+                                break;
+                            case GRAY_IDX:
+                                dsGray.Add(sheep);
+                                break;
+                            default:
+                                break;
+                        }
 
                         lblKhoiLuong.Text = sheep.KhoiLuong.ToString();
                         lblKhoiLuongLong.Text = sheep.KhoiLuongLong.ToString();
@@ -106,13 +121,23 @@ namespace DemCuu
 
         private void btnLuuExcel_Click(object sender, EventArgs e)
         {
-            Excel.Application excelApp = new Excel.Application();
             var now = DateTime.Now;
             var currentDirectory = System.IO.Directory.GetCurrentDirectory();
             var junkName = $"{now.Year}{now.Month}{now.Day}{now.Hour}{now.Minute}{now.Second}";
+
+            var fileNameWhiteSheep = $"{currentDirectory}/white_{junkName}";
+            var fileNameBlackSheep = $"{currentDirectory}/black_{junkName}";
+            var fileNameGraySheep = $"{currentDirectory}/gray_{junkName}";
+
+            LuuExcel(fileNameWhiteSheep, dsWhite);
+            LuuExcel(fileNameBlackSheep, dsBlack);
+            LuuExcel(fileNameGraySheep, dsGray);
+        }
+
+        private void LuuExcel(string fileName, List<Sheep> dsSheep) {
+            Excel.Application excelApp = new Excel.Application();
             if (excelApp != null)
             {
-
                 Excel.Workbook excelWorkbook = excelApp.Workbooks.Add();
                 Excel.Worksheet excelWorksheet = (Excel.Worksheet)excelWorkbook.Sheets["sheet1"];
 
@@ -124,24 +149,15 @@ namespace DemCuu
                 excelWorksheet.Cells[1, 2] = "Khối Lượng";
                 excelWorksheet.Cells[1, 3] = "Khối Lượng Lông";
 
-                int colorIdx = 0;
-                foreach (var mausac in dsColor) {
-                    int idx = 1;
-                    var dsTemp = dsSheep.Where(o => o.ColorIdx == colorIdx).ToList();
-                    foreach (var item in dsTemp)
-                    {
-                        idx++;
-                        excelWorksheet.Cells[idx, 1] = idx - 1;
-                        excelWorksheet.Cells[idx, 2] = item.KhoiLuong;
-                        excelWorksheet.Cells[idx, 3] = item.KhoiLuongLong;
-                    }
-                    colorIdx++;
-                    var fileName = $"{currentDirectory}/{mausac}_{junkName}";
-                    excelApp.ActiveWorkbook.SaveAs(fileName, Excel.XlFileFormat.xlWorkbookNormal);
+                int idx = 1;
+                foreach (var item in dsSheep)
+                {
+                    idx++;
+                    excelWorksheet.Cells[idx, 1] = idx - 1;
+                    excelWorksheet.Cells[idx, 2] = item.KhoiLuong;
+                    excelWorksheet.Cells[idx, 3] = item.KhoiLuongLong;
                 }
-
-                //White
-                
+                excelApp.ActiveWorkbook.SaveAs(fileName, Excel.XlFileFormat.xlWorkbookNormal);
 
                 excelWorkbook.Close();
                 excelApp.Quit();
