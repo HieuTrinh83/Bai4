@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DemCuu.Models
 {
@@ -13,16 +9,29 @@ namespace DemCuu.Models
             
         }
 
-        public Sheep(float _khoiLuong, int _color, float _khoiLuongLong)
+        public Sheep(int stt, float khoiLuong, int colorIdx, float khoiLuongLong, DateTime start, DateTime end)
         {
-            KhoiLuong = _khoiLuong;
-            ColorIdx = _color;
-            KhoiLuongLong = _khoiLuongLong;
+            Stt = stt;
+            KhoiLuong = khoiLuong;
+            ColorIdx = colorIdx;
+            KhoiLuongLong = khoiLuongLong;
+            Start = start;
+            End = end;
         }
-
+        public int Stt { get; set; }
         public float KhoiLuong { get; set; }
         public int ColorIdx { get; set; }
         public float KhoiLuongLong { get; set; }
+
+        public DateTime Start { get; set; }
+
+        public DateTime End { get; set; }
+
+        public TimeSpan ProcessTime { 
+            get {
+                return End - Start;
+            } 
+        }
 
     }
 }

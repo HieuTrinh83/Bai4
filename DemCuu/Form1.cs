@@ -1,28 +1,36 @@
 ﻿using DemCuu.Models;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DemCuu
 {
     public partial class formBai4 : Form
     {
+        System.Windows.Forms.Timer saveFileTimer = new System.Windows.Forms.Timer();
+
         Thread thrdDemCuu;
         private Random r;
-        private int tgDem; //second
         private bool isPlaying = false;
         private const int BLACK_IDX = 0;
         private const int WHITE_IDX = 1;
         private const int GRAY_IDX = 2;
-        private List<string> dsColor = new List<string> { "black", "white", "gray" };
 
+        // Danh sách màu cừu
+        private List<Color> dsColor = new List<Color> { Color.FromArgb(0,0,0), Color.FromArgb(255,255,255), Color.Gray };
+
+        // Danh sách cừu theo màu theo từng đợt lưu
         private List<Sheep> dsWhite = new List<Sheep>();
         private List<Sheep> dsBlack = new List<Sheep>();
         private List<Sheep> dsGray = new List<Sheep>();
+
+        //Danh sách toàn bộ cừu theo từng đợt lưu
+        private List<Sheep> dsSheep = new List<Sheep>();
 
         public formBai4()
         {
@@ -37,19 +45,68 @@ namespace DemCuu
             btnStart.Enabled = false;
             btnStop.Enabled = true;
 
+            //Khởi tạo luồng xử lý đếm cừu
             thrdDemCuu = new Thread(DemCuu);
             thrdDemCuu.Start();
+
+            //Timer cho xử lý lưu thông tin cừu vào các loại danh sách
+            saveFileTimer.Start();
         }
 
         private void formBai4_Load(object sender, EventArgs e)
         {
+            //Thiết lập thời gian lưu file
+            saveFileTimer.Interval = 20*1000;
+
+            //Thiết lập handler cho timer
+            saveFileTimer.Tick += SaveFileTimer_Tick;
         }
 
+        private void SaveFileTimer_Tick(object sender, EventArgs e)
+        {
+            var now = DateTime.Now;
+            //Thư mục chạy
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var junkName = $"{now.Year}{now.Month}{now.Day}{now.Hour}{now.Minute}{now.Second}";
+
+            //Thư mục cần lưu file
+            var destinationDir = $"{currentDirectory}/{junkName}";
+
+            try
+            {
+                //Tạo thư mục nếu chưa tồn tại
+                if (!Directory.Exists(destinationDir))
+                {
+                    Directory.CreateDirectory(destinationDir);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            //Danh sách tên các file Excel cần phải lưu
+            var fileNameWhiteSheep = $"{destinationDir}/white.xlsx";
+            var fileNameBlackSheep = $"{destinationDir}/black.xlsx";
+            var fileNameGraySheep = $"{destinationDir}/gray.xlsx";
+            var fileNameTotalSheep = $"{destinationDir}/total.xlsx";
+
+            //Lưu file
+            LuuExcel(fileNameWhiteSheep, dsWhite);
+            LuuExcel(fileNameBlackSheep, dsBlack);
+            LuuExcel(fileNameGraySheep, dsGray);
+            LuuExcel(fileNameTotalSheep, dsSheep);
+        }
+
+        /// <summary>
+        /// Phương thức dành cho thread đếm cừu
+        /// </summary>
         private void DemCuu()
         {
             try {
+                //Các thông số lưu tạm thời của cừu
                 int _khoiLuong = 0;
-                int _tyLeLong = 0; //%
+                int _tyLeLong = 0; 
                 int _mauIdx = 0;
 
                 int soLuong = 0, dem = 1;
@@ -58,14 +115,19 @@ namespace DemCuu
                 {
                     while (isPlaying && dem <= soLuong)
                     {
-
+                        //Thu thập thông tin
                         lblStt.Text = dem.ToString();
                         _khoiLuong = r.Next(30, 61);
                         _tyLeLong = r.Next(3, 8);
                         _mauIdx = r.Next(0, 3);
-
+                        int tgDem = r.Next(1, 6);
                         float khoiLuongLong = (float)(_khoiLuong * _tyLeLong) / 100;
-                        var sheep = new Sheep(_khoiLuong, _mauIdx, khoiLuongLong);
+
+                        //Tạo đối tượng cừu
+                        var now = DateTime.Now;
+                        var sheep = new Sheep(dem, _khoiLuong, _mauIdx, khoiLuongLong, now, now.AddSeconds(tgDem));
+
+                        //Lưu thông tin cừu theo màu vào các danh sách cụ thể
                         switch (_mauIdx)
                         {
                             case WHITE_IDX:
@@ -81,21 +143,43 @@ namespace DemCuu
                                 break;
                         }
 
+                        //Lưu thông tin cừu vào danh sách tổng
+                        dsSheep.Add(sheep);
+
+                        //Đẩy thông tin cừu vào ListViewItem
+                        ListViewItem item = new ListViewItem(lblStt.Text);
+                        item.UseItemStyleForSubItems = false;
+                        item.SubItems.Add(sheep.KhoiLuong.ToString("N1"));
+                        item.SubItems.Add("").BackColor = dsColor[sheep.ColorIdx];
+                        item.SubItems.Add(sheep.KhoiLuongLong.ToString("N2"));
+                        item.SubItems.Add(sheep.Start.ToString("dd/MM/yyyy HH:mm:ss"));
+                        item.SubItems.Add(sheep.End.ToString("dd/MM/yyyy HH:mm:ss"));
+                        item.SubItems.Add(sheep.ProcessTime.ToString());
+                        lvSheepsDetail.Items.Add(item);
+
+                        //Do danh sách chỉ được phép hiển thị 20 con cừu được xử lý gần nhất nên ListViewItem cần phải xóa bớt
+                        if (lvSheepsDetail.Items.Count > 20)
+                        {
+                            lvSheepsDetail.Items.RemoveAt(0);
+                        }
+
+                        //Thông tin hiển thị con cừu đang được xử lý thông tin
                         lblKhoiLuong.Text = sheep.KhoiLuong.ToString();
                         lblKhoiLuongLong.Text = sheep.KhoiLuongLong.ToString();
                         pbSheepColor.Image = iconIML.Images[sheep.ColorIdx];
 
+                        //Break Point
                         if (!isPlaying || soLuong == dem)
                         {
                             break;
                         }
-
                         dem++;
-                        tgDem = r.Next(1, 6);
 
+                        //Đây là fake thời gian để chuyển cừu lên xe, sẽ có thay đổi trong bài toán thật sự khi làm việc vói các sensor
                         Thread.Sleep(tgDem * 1000);
                     }
 
+                    //Thông báo hoàn thành đơn hàng
                     if(soLuong == dem)
                     {
                         MessageBox.Show("Đã hoàn thành!");
@@ -119,54 +203,83 @@ namespace DemCuu
             thrdDemCuu.Join();
         }
 
-        private void btnLuuExcel_Click(object sender, EventArgs e)
-        {
-            var now = DateTime.Now;
-            var currentDirectory = System.IO.Directory.GetCurrentDirectory();
-            var junkName = $"{now.Year}{now.Month}{now.Day}{now.Hour}{now.Minute}{now.Second}";
-
-            var fileNameWhiteSheep = $"{currentDirectory}/white_{junkName}";
-            var fileNameBlackSheep = $"{currentDirectory}/black_{junkName}";
-            var fileNameGraySheep = $"{currentDirectory}/gray_{junkName}";
-
-            LuuExcel(fileNameWhiteSheep, dsWhite);
-            LuuExcel(fileNameBlackSheep, dsBlack);
-            LuuExcel(fileNameGraySheep, dsGray);
-        }
-
-        private void LuuExcel(string fileName, List<Sheep> dsSheep) {
-            Excel.Application excelApp = new Excel.Application();
-            if (excelApp != null)
+        /// <summary>
+        /// Lưu thông tin của 1 danh sách thông tin cừu vào file
+        /// </summary>
+        /// <param name="fileName">Tên tệp cần lưu</param>
+        /// <param name="ds">Danh sách cần lưu</param>
+        private void LuuExcel(string fileName, List<Sheep> ds) {
+            try
             {
-                Excel.Workbook excelWorkbook = excelApp.Workbooks.Add();
-                Excel.Worksheet excelWorksheet = (Excel.Worksheet)excelWorkbook.Sheets["sheet1"];
-
-                excelWorksheet.Columns[1].ColumnWidth = 7;
-                excelWorksheet.Columns[2].ColumnWidth = 15;
-                excelWorksheet.Columns[3].ColumnWidth = 20;
-
-                excelWorksheet.Cells[1, 1] = "STT";
-                excelWorksheet.Cells[1, 2] = "Khối Lượng";
-                excelWorksheet.Cells[1, 3] = "Khối Lượng Lông";
-
-                int idx = 1;
-                foreach (var item in dsSheep)
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                ExcelPackage excel = new ExcelPackage();
+                if (excel != null)
                 {
-                    idx++;
-                    excelWorksheet.Cells[idx, 1] = idx - 1;
-                    excelWorksheet.Cells[idx, 2] = item.KhoiLuong;
-                    excelWorksheet.Cells[idx, 3] = item.KhoiLuongLong;
+                    var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+
+                    // setting the properties 
+                    // of the work sheet  
+                    workSheet.TabColor = Color.Black;
+                    workSheet.DefaultRowHeight = 12;
+
+                    // Setting the properties 
+                    // of the first row 
+                    workSheet.Row(1).Height = 20;
+                    workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    workSheet.Row(1).Style.Font.Bold = true;
+
+                    workSheet.Cells[1, 1].Value = "STT";
+                    workSheet.Cells[1, 2].Value = "Khối Lượng";
+                    workSheet.Cells[1, 3].Value = "Màu sắc";
+                    workSheet.Cells[1, 4].Value = "Khối Lượng Lông";
+                    workSheet.Cells[1, 5].Value = "Bắt đầu";
+                    workSheet.Cells[1, 6].Value = "Kết thúc";
+                    workSheet.Cells[1, 7].Value = "Thời lượng";
+
+                    workSheet.Column(1).AutoFit();
+                    workSheet.Column(2).AutoFit();
+                    workSheet.Column(3).AutoFit();
+                    workSheet.Column(4).AutoFit();
+                    workSheet.Column(5).AutoFit();
+                    workSheet.Column(6).AutoFit();
+                    workSheet.Column(7).AutoFit();
+
+                    int idx = 2;
+                    foreach (var item in ds)
+                    {
+                        workSheet.Cells[idx, 1].Value = item.Stt;
+                        workSheet.Cells[idx, 2].Value = item.KhoiLuong.ToString("N1");
+                        workSheet.Cells[idx, 3].Value = "";
+                        workSheet.Cells[idx, 4].Value = item.KhoiLuongLong.ToString("N2");
+                        workSheet.Cells[idx, 5].Value = item.Start.ToString("dd/MM/yyyy HH:mm:ss");
+                        workSheet.Cells[idx, 6].Value = item.End.ToString("dd/MM/yyyy HH:mm:ss");
+                        workSheet.Cells[idx, 7].Value = item.ProcessTime.ToString();
+                        idx++;
+                    }
+                    // Create File
+                    FileStream objFileStrm = File.Create(fileName);
+                    objFileStrm.Close();
+
+                    // Write content to excel file  
+                    File.WriteAllBytes(fileName, excel.GetAsByteArray());
+                    //Close Excel package 
+                    excel.Dispose();
+
+                    //excelApp.ActiveWorkbook.SaveAs(fileName, Excel.XlFileFormat.xlWorkbookNormal);
+                    //excelWorkbook.Close();
+                    //excelApp.Quit();
+
+                    //System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelWorksheet);
+                    //System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelWorkbook);
+                    //System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelApp);
+                    //GC.Collect();
+                    //GC.WaitForPendingFinalizers();
+                    ds.Clear();
                 }
-                excelApp.ActiveWorkbook.SaveAs(fileName, Excel.XlFileFormat.xlWorkbookNormal);
-
-                excelWorkbook.Close();
-                excelApp.Quit();
-
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelWorksheet);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelWorkbook);
-                System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelApp);
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

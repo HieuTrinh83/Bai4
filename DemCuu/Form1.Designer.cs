@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formBai4));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnLuuExcel = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.txtSoluong = new System.Windows.Forms.TextBox();
@@ -51,6 +50,9 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.iconIML = new System.Windows.Forms.ImageList(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -60,7 +62,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnLuuExcel);
             this.groupBox1.Controls.Add(this.btnStop);
             this.groupBox1.Controls.Add(this.btnStart);
             this.groupBox1.Controls.Add(this.txtSoluong);
@@ -68,33 +69,25 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(483, 53);
+            this.groupBox1.Size = new System.Drawing.Size(791, 53);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // btnLuuExcel
-            // 
-            this.btnLuuExcel.Location = new System.Drawing.Point(293, 15);
-            this.btnLuuExcel.Name = "btnLuuExcel";
-            this.btnLuuExcel.Size = new System.Drawing.Size(75, 23);
-            this.btnLuuExcel.TabIndex = 5;
-            this.btnLuuExcel.Text = "Lưu Excel";
-            this.btnLuuExcel.UseVisualStyleBackColor = true;
-            this.btnLuuExcel.Click += new System.EventHandler(this.btnLuuExcel_Click);
-            // 
             // btnStop
             // 
-            this.btnStop.Enabled = false;
+            this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStop.ForeColor = System.Drawing.Color.Black;
             this.btnStop.Location = new System.Drawing.Point(212, 15);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 4;
             this.btnStop.Text = "Stop";
-            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.UseVisualStyleBackColor = false;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnStart
             // 
+            this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStart.Location = new System.Drawing.Point(131, 15);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
@@ -105,6 +98,7 @@
             // 
             // txtSoluong
             // 
+            this.txtSoluong.ForeColor = System.Drawing.Color.Blue;
             this.txtSoluong.Location = new System.Drawing.Point(62, 17);
             this.txtSoluong.Name = "txtSoluong";
             this.txtSoluong.Size = new System.Drawing.Size(63, 20);
@@ -132,7 +126,7 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(12, 71);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(483, 48);
+            this.groupBox2.Size = new System.Drawing.Size(791, 48);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
@@ -209,22 +203,27 @@
             this.groupBox3.Controls.Add(this.lvSheepsDetail);
             this.groupBox3.Location = new System.Drawing.Point(12, 125);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(483, 313);
+            this.groupBox3.Size = new System.Drawing.Size(794, 313);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
             // lvSheepsDetail
             // 
+            this.lvSheepsDetail.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.lvSheepsDetail.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7});
+            this.lvSheepsDetail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvSheepsDetail.GridLines = true;
             this.lvSheepsDetail.HideSelection = false;
-            this.lvSheepsDetail.Location = new System.Drawing.Point(7, 20);
+            this.lvSheepsDetail.Location = new System.Drawing.Point(3, 16);
             this.lvSheepsDetail.Name = "lvSheepsDetail";
-            this.lvSheepsDetail.Size = new System.Drawing.Size(470, 287);
+            this.lvSheepsDetail.Size = new System.Drawing.Size(788, 294);
             this.lvSheepsDetail.TabIndex = 0;
             this.lvSheepsDetail.UseCompatibleStateImageBehavior = false;
             this.lvSheepsDetail.View = System.Windows.Forms.View.Details;
@@ -235,18 +234,33 @@
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Khối lượng";
-            this.columnHeader2.Width = 120;
+            this.columnHeader2.Text = "Khối lượng (Kg)";
+            this.columnHeader2.Width = 90;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Màu sắc";
-            this.columnHeader3.Width = 80;
+            this.columnHeader3.Width = 77;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Khối lượng lông";
-            this.columnHeader4.Width = 120;
+            this.columnHeader4.Text = "Khối lượng lông (Kg)";
+            this.columnHeader4.Width = 115;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Start";
+            this.columnHeader5.Width = 180;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "End";
+            this.columnHeader6.Width = 180;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Thời lượng";
+            this.columnHeader7.Width = 70;
             // 
             // iconIML
             // 
@@ -260,12 +274,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 450);
+            this.ClientSize = new System.Drawing.Size(818, 450);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "formBai4";
-            this.Text = "Bài 4";
+            this.Text = "Lấy thông số cừu xuất chuồng";
             this.Load += new System.EventHandler(this.formBai4_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -300,7 +314,9 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.ImageList iconIML;
         private System.Windows.Forms.PictureBox pbSheepColor;
-        private System.Windows.Forms.Button btnLuuExcel;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
     }
 }
 
