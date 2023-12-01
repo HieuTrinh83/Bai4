@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DemCuu.Forms;
+using System;
 using System.Windows.Forms;
 
 namespace DemCuu
@@ -13,7 +14,7 @@ namespace DemCuu
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new formBai4());
+            Application.Run(new DemCuuForm());
         }
     }
 }

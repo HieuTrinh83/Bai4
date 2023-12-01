@@ -8,9 +8,9 @@ using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace DemCuu
+namespace DemCuu.Forms
 {
-    public partial class formBai4 : Form
+    public partial class DemCuuForm : Form
     {
         System.Windows.Forms.Timer saveFileTimer = new System.Windows.Forms.Timer();
 
@@ -32,7 +32,7 @@ namespace DemCuu
         //Danh sách toàn bộ cừu theo từng đợt lưu
         private List<Sheep> dsSheep = new List<Sheep>();
 
-        public formBai4()
+        public DemCuuForm()
         {
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -212,68 +212,62 @@ namespace DemCuu
             try
             {
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                ExcelPackage excel = new ExcelPackage();
-                if (excel != null)
+                using(ExcelPackage excel = new ExcelPackage())
                 {
-                    var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
-
-                    // setting the properties 
-                    // of the work sheet  
-                    workSheet.TabColor = Color.Black;
-                    workSheet.DefaultRowHeight = 12;
-
-                    // Setting the properties 
-                    // of the first row 
-                    workSheet.Row(1).Height = 20;
-                    workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    workSheet.Row(1).Style.Font.Bold = true;
-
-                    workSheet.Cells[1, 1].Value = "STT";
-                    workSheet.Cells[1, 2].Value = "Khối Lượng";
-                    workSheet.Cells[1, 3].Value = "Màu sắc";
-                    workSheet.Cells[1, 4].Value = "Khối Lượng Lông";
-                    workSheet.Cells[1, 5].Value = "Bắt đầu";
-                    workSheet.Cells[1, 6].Value = "Kết thúc";
-                    workSheet.Cells[1, 7].Value = "Thời lượng";
-
-                    workSheet.Column(1).AutoFit();
-                    workSheet.Column(2).AutoFit();
-                    workSheet.Column(3).AutoFit();
-                    workSheet.Column(4).AutoFit();
-                    workSheet.Column(5).AutoFit();
-                    workSheet.Column(6).AutoFit();
-                    workSheet.Column(7).AutoFit();
-
-                    int idx = 2;
-                    foreach (var item in ds)
+                    if (excel != null)
                     {
-                        workSheet.Cells[idx, 1].Value = item.Stt;
-                        workSheet.Cells[idx, 2].Value = item.KhoiLuong.ToString("N1");
-                        workSheet.Cells[idx, 3].Value = "";
-                        workSheet.Cells[idx, 4].Value = item.KhoiLuongLong.ToString("N2");
-                        workSheet.Cells[idx, 5].Value = item.Start.ToString("dd/MM/yyyy HH:mm:ss");
-                        workSheet.Cells[idx, 6].Value = item.End.ToString("dd/MM/yyyy HH:mm:ss");
-                        workSheet.Cells[idx, 7].Value = item.ProcessTime.ToString();
-                        idx++;
+                        var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+
+                        // setting the properties 
+                        // of the work sheet  
+                        workSheet.TabColor = Color.Black;
+                        workSheet.DefaultRowHeight = 12;
+
+                        // Setting the properties 
+                        // of the first row 
+                        workSheet.Row(1).Height = 20;
+                        workSheet.Row(1).Style.Font.Bold = true;
+
+                        workSheet.Cells[1, 1].Value = "STT";
+                        workSheet.Cells[1, 2].Value = "Khối Lượng (kg)";
+                        workSheet.Cells[1, 3].Value = "Màu sắc";
+                        workSheet.Cells[1, 4].Value = "Khối Lượng Lông (kg)";
+                        workSheet.Cells[1, 5].Value = "Bắt đầu";
+                        workSheet.Cells[1, 6].Value = "Kết thúc";
+                        workSheet.Cells[1, 7].Value = "Thời lượng";
+
+                        workSheet.Column(1).Width = 7;
+                        workSheet.Column(2).Width = 18;
+                        workSheet.Column(3).Width = 10;
+                        workSheet.Column(4).Width = 22;
+                        workSheet.Column(5).Width = 22;
+                        workSheet.Column(6).Width = 22;
+                        workSheet.Column(7).Width = 15;
+
+                        int idx = 2;
+                        foreach (var item in ds)
+                        {
+                            workSheet.Cells[idx, 1].Value = item.Stt;
+                            workSheet.Cells[idx, 2].Value = item.KhoiLuong.ToString("N1");
+                            workSheet.Cells[idx, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            workSheet.Cells[idx, 3].Value = "";
+                            workSheet.Cells[idx, 3].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            workSheet.Cells[idx, 3].Style.Fill.BackgroundColor.SetColor(dsColor[item.ColorIdx]);
+                            workSheet.Cells[idx, 4].Value = item.KhoiLuongLong.ToString("N2");
+                            workSheet.Cells[idx, 4].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            workSheet.Cells[idx, 5].Value = item.Start.ToString("dd/MM/yyyy HH:mm:ss");
+                            workSheet.Cells[idx, 6].Value = item.End.ToString("dd/MM/yyyy HH:mm:ss");
+                            workSheet.Cells[idx, 7].Value = item.ProcessTime.ToString();
+                            idx++;
+                        }
+                        // Create File
+                        FileStream objFileStrm = File.Create(fileName);
+                        objFileStrm.Close();
+
+                        // Write content to excel file  
+                        File.WriteAllBytes(fileName, excel.GetAsByteArray());
                     }
-                    // Create File
-                    FileStream objFileStrm = File.Create(fileName);
-                    objFileStrm.Close();
-
-                    // Write content to excel file  
-                    File.WriteAllBytes(fileName, excel.GetAsByteArray());
-                    //Close Excel package 
-                    excel.Dispose();
-
-                    //excelApp.ActiveWorkbook.SaveAs(fileName, Excel.XlFileFormat.xlWorkbookNormal);
-                    //excelWorkbook.Close();
-                    //excelApp.Quit();
-
-                    //System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelWorksheet);
-                    //System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelWorkbook);
-                    //System.Runtime.InteropServices.Marshal.FinalReleaseComObject(excelApp);
-                    //GC.Collect();
-                    //GC.WaitForPendingFinalizers();
+                
                     ds.Clear();
                 }
             }
