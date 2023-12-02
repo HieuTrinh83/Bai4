@@ -18,9 +18,13 @@ namespace DemCuu.Models
             Start = start;
             End = end;
         }
+
         public int Stt { get; set; }
+
         public float KhoiLuong { get; set; }
+
         public int ColorIdx { get; set; }
+
         public float KhoiLuongLong { get; set; }
 
         public DateTime Start { get; set; }

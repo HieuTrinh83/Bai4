@@ -14,7 +14,8 @@ namespace DemCuu
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DemCuuForm());
+            Application.Run(new MainForm());
+            //Application.Run(new DemCuuForm());
         }
     }
 }

@@ -96,6 +96,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -112,9 +113,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Images\den.png" />
-    <Content Include="Resources\Images\trang.png" />
-    <Content Include="Resources\Images\xam.png" />
+    <Content Include="Resources\icons\icons8-computer-60.png" />
+    <Content Include="Resources\icons\icons8-create-24.png" />
+    <Content Include="Resources\icons\icons8-create-40.png" />
+    <Content Include="Resources\icons\icons8-refresh-30.png" />
+    <Content Include="Resources\icons\icons8-restart-94.png" />
+    <Content Include="Resources\images\den.png" />
+    <Content Include="Resources\images\trang.png" />
+    <Content Include="Resources\images\xam.png" />
+    <Content Include="Resources\logos\lg_logo.png" />
+    <Content Include="Resources\logos\logo_baoan.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
