@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -55,6 +56,9 @@ namespace DemCuu.Forms
 
         private void formBai4_Load(object sender, EventArgs e)
         {
+            txtSoluong.Text = (MainForm.currentDonHang.SoLuong - MainForm.currentDonHang.dsSheep.Count).ToString();
+            this.Text = $"Khách hàng {MainForm.currentDonHang.TenKhachHang}, Phone: {MainForm.currentDonHang.Phone}";
+
             //Thiết lập thời gian lưu file
             saveFileTimer.Interval = 20*1000;
 
@@ -109,7 +113,7 @@ namespace DemCuu.Forms
                 int _tyLeLong = 0; 
                 int _mauIdx = 0;
 
-                int soLuong = 0, dem = 1;
+                int soLuong = 0, dem = MainForm.currentDonHang.dsSheep.Count+1;
 
                 if (Int32.TryParse(txtSoluong.Text, out soLuong))
                 {
@@ -144,6 +148,7 @@ namespace DemCuu.Forms
                         }
 
                         //Lưu thông tin cừu vào danh sách tổng
+                        MainForm.currentDonHang.dsSheep.Add(sheep);
                         dsSheep.Add(sheep);
 
                         //Đẩy thông tin cừu vào ListViewItem
@@ -182,6 +187,7 @@ namespace DemCuu.Forms
                     //Thông báo hoàn thành đơn hàng
                     if(soLuong == dem)
                     {
+                        MainForm.currentDonHang.Status = (int)DonHangStatus.FINISHED;
                         MessageBox.Show("Đã hoàn thành!");
                     }
                 }
@@ -199,8 +205,11 @@ namespace DemCuu.Forms
         {
             btnStart.Enabled = true;
             btnStop.Enabled = false;
-            thrdDemCuu.Abort(100);
-            thrdDemCuu.Join();
+            if(thrdDemCuu != null)
+            {
+                thrdDemCuu.Abort(100);
+                thrdDemCuu.Join();
+            }
         }
 
         /// <summary>
@@ -274,6 +283,14 @@ namespace DemCuu.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void DemCuuForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if(thrdDemCuu != null)
+            {
+                thrdDemCuu.Abort(100);
             }
         }
     }

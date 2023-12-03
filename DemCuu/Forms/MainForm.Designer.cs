@@ -34,6 +34,7 @@ namespace DemCuu.Forms
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lvDonDatHang = new System.Windows.Forms.ListView();
+            this.columnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,9 +50,9 @@ namespace DemCuu.Forms
             this.label2 = new System.Windows.Forms.Label();
             this.txtTen = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.columnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnChayDonHang = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnReport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -63,7 +64,7 @@ namespace DemCuu.Forms
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::DemCuu.Properties.Resources.logo_baoan;
-            this.pictureBox2.Location = new System.Drawing.Point(671, 0);
+            this.pictureBox2.Location = new System.Drawing.Point(706, 0);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(107, 50);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -93,10 +94,14 @@ namespace DemCuu.Forms
             this.lvDonDatHang.HideSelection = false;
             this.lvDonDatHang.Location = new System.Drawing.Point(6, 19);
             this.lvDonDatHang.Name = "lvDonDatHang";
-            this.lvDonDatHang.Size = new System.Drawing.Size(484, 267);
+            this.lvDonDatHang.Size = new System.Drawing.Size(519, 267);
             this.lvDonDatHang.TabIndex = 2;
             this.lvDonDatHang.UseCompatibleStateImageBehavior = false;
             this.lvDonDatHang.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader
+            // 
+            this.columnHeader.Text = "STT";
             // 
             // columnHeader1
             // 
@@ -116,6 +121,7 @@ namespace DemCuu.Forms
             // columnHeader4
             // 
             this.columnHeader4.Text = "Trạng thái";
+            this.columnHeader4.Width = 100;
             // 
             // groupBox1
             // 
@@ -123,7 +129,7 @@ namespace DemCuu.Forms
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(271, 69);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(496, 292);
+            this.groupBox1.Size = new System.Drawing.Size(531, 292);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Danh sách đặt hàng";
@@ -170,6 +176,7 @@ namespace DemCuu.Forms
             this.imageList1.Images.SetKeyName(0, "icons8-create-40.png");
             this.imageList1.Images.SetKeyName(1, "icons8-restart-94.png");
             this.imageList1.Images.SetKeyName(2, "icons8-computer-60.png");
+            this.imageList1.Images.SetKeyName(3, "icons8-combo-chart-96.png");
             // 
             // btnDatHang
             // 
@@ -181,7 +188,7 @@ namespace DemCuu.Forms
             this.btnDatHang.Location = new System.Drawing.Point(10, 156);
             this.btnDatHang.Name = "btnDatHang";
             this.btnDatHang.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.btnDatHang.Size = new System.Drawing.Size(118, 39);
+            this.btnDatHang.Size = new System.Drawing.Size(109, 39);
             this.btnDatHang.TabIndex = 4;
             this.btnDatHang.Text = "Đặt hàng";
             this.btnDatHang.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -239,10 +246,6 @@ namespace DemCuu.Forms
             this.label1.TabIndex = 0;
             this.label1.Text = "Tên";
             // 
-            // columnHeader
-            // 
-            this.columnHeader.Text = "STT";
-            // 
             // btnChayDonHang
             // 
             this.btnChayDonHang.BackColor = System.Drawing.Color.Gray;
@@ -251,18 +254,19 @@ namespace DemCuu.Forms
             this.btnChayDonHang.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnChayDonHang.ImageIndex = 2;
             this.btnChayDonHang.ImageList = this.imageList1;
-            this.btnChayDonHang.Location = new System.Drawing.Point(20, 19);
+            this.btnChayDonHang.Location = new System.Drawing.Point(10, 19);
             this.btnChayDonHang.Name = "btnChayDonHang";
-            this.btnChayDonHang.Padding = new System.Windows.Forms.Padding(5, 0, 10, 0);
-            this.btnChayDonHang.Size = new System.Drawing.Size(217, 39);
+            this.btnChayDonHang.Padding = new System.Windows.Forms.Padding(5, 0, 6, 0);
+            this.btnChayDonHang.Size = new System.Drawing.Size(109, 39);
             this.btnChayDonHang.TabIndex = 5;
-            this.btnChayDonHang.Text = "Chạy các đơn hàng";
+            this.btnChayDonHang.Text = "Run";
             this.btnChayDonHang.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnChayDonHang.UseVisualStyleBackColor = false;
             this.btnChayDonHang.Click += new System.EventHandler(this.btnChayDonHang_Click);
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnReport);
             this.groupBox3.Controls.Add(this.btnChayDonHang);
             this.groupBox3.Location = new System.Drawing.Point(12, 289);
             this.groupBox3.Name = "groupBox3";
@@ -270,12 +274,29 @@ namespace DemCuu.Forms
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             // 
+            // btnReport
+            // 
+            this.btnReport.BackColor = System.Drawing.Color.Gray;
+            this.btnReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.btnReport.ForeColor = System.Drawing.Color.White;
+            this.btnReport.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnReport.ImageIndex = 3;
+            this.btnReport.ImageList = this.imageList1;
+            this.btnReport.Location = new System.Drawing.Point(148, 20);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.btnReport.Size = new System.Drawing.Size(89, 38);
+            this.btnReport.TabIndex = 6;
+            this.btnReport.Text = "report";
+            this.btnReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReport.UseVisualStyleBackColor = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(779, 373);
+            this.ClientSize = new System.Drawing.Size(814, 373);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -283,6 +304,7 @@ namespace DemCuu.Forms
             this.Controls.Add(this.pictureBox1);
             this.Name = "MainForm";
             this.Text = "Giao diện chính";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
@@ -316,5 +338,6 @@ namespace DemCuu.Forms
         private System.Windows.Forms.ColumnHeader columnHeader;
         private System.Windows.Forms.Button btnChayDonHang;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnReport;
     }
 }

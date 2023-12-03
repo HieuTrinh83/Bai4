@@ -2,6 +2,7 @@
 using DemCuu.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -9,9 +10,10 @@ namespace DemCuu.Forms
 {
     public partial class MainForm : Form
     {
-        private List<DonHang> donHangs = new List<DonHang>();
-
         public static DonHang currentDonHang = null;
+
+        private List<DonHang> donHangs = new List<DonHang>();
+        private bool isChayDonHang = false;
 
         public MainForm()
         {
@@ -98,28 +100,77 @@ namespace DemCuu.Forms
         {
             try
             {
-                var temp = lvDonDatHang.CheckedItems.OfType<DonHang>().Where(o => o.Status == (int)DonHangStatus.WAITING);
+                var temp = lvDonDatHang.CheckedItems.OfType<ListViewItem>().Select(o =>o.Text);
                 if (temp.Count() <= 0)
                 {
                     throw new Exception("Không có đơn hàng nào để chạy");
                 }
                 else
                 {
-                    foreach (var item in lvDonDatHang.CheckedItems)
+                    var dsWaiting = (from o in donHangs
+                                    where temp.Contains(o.Stt.ToString()) && (o.Status == (int)DonHangStatus.WAITING || o.Status == (int)DonHangStatus.IN_PROGRESS)
+                                    select o).ToList();
+                                    
+                    foreach (var item in dsWaiting)
                     {
-                        currentDonHang = (DonHang)item;
-                        var processForm = new DemCuuForm();
-                        lvDonDatHang.CheckedItems.OfType<DonHang>().FirstOrDefault(o => o.Stt == currentDonHang.Stt).Status = (int)DonHangStatus.IN_PROGRESS;
-                        processForm.ShowDialog();
-                        lvDonDatHang.CheckedItems.OfType<DonHang>().FirstOrDefault(o => o.Stt == currentDonHang.Stt).Status = (int)DonHangStatus.FINISHED;
+                        currentDonHang = item;
+                        var lvItem = lvDonDatHang.FindItemWithText(item.Stt.ToString());
+                        DemCuuForm processingForm = new DemCuuForm();
+                        processingForm.FormClosed += demCuuFormClosed;
+                        item.Status = (int)DonHangStatus.IN_PROGRESS;
+                        lvItem.SubItems[4].Text = item.getStatusName;
+                        processingForm.Show();
+                        SetRunningBtn();
+                        break;
                     }
                 }
             }
             catch(Exception ex)
             {
+                ResetRunBtn();
                 MessageBox.Show(ex.Message);
             }
+        }
 
+        private void demCuuFormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                ((Form)sender).FormClosed -= demCuuFormClosed;
+                var currentItem = lvDonDatHang.FindItemWithText(currentDonHang.Stt.ToString());
+                currentItem.SubItems[4].Text = currentDonHang.getStatusName;
+                ResetRunBtn();
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void ResetRunBtn()
+        {
+            if (isChayDonHang)
+            {
+                isChayDonHang = false;
+                btnChayDonHang.Enabled = true;
+                btnChayDonHang.Text = "Run";
+                btnChayDonHang.BackColor = Color.Gray;
+            }
+        }
+
+        private void SetRunningBtn()
+        {
+            if (!isChayDonHang)
+            {
+                isChayDonHang = true;
+                btnChayDonHang.Enabled = false;
+                btnChayDonHang.Text = "Running";
+                btnChayDonHang.BackColor = Color.Red;
+            }
+
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
         }
     }
 }

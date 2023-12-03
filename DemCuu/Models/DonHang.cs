@@ -28,6 +28,8 @@ namespace DemCuu.Models
                 return StatusName[this.Status];
             }
         }
+
+        public List<Sheep> dsSheep { get; set; } = new List<Sheep>();
     }
 
     enum DonHangStatus

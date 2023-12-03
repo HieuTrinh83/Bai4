@@ -98,9 +98,11 @@
             // 
             // txtSoluong
             // 
+            this.txtSoluong.Enabled = false;
             this.txtSoluong.ForeColor = System.Drawing.Color.Blue;
             this.txtSoluong.Location = new System.Drawing.Point(62, 17);
             this.txtSoluong.Name = "txtSoluong";
+            this.txtSoluong.ReadOnly = true;
             this.txtSoluong.Size = new System.Drawing.Size(63, 20);
             this.txtSoluong.TabIndex = 1;
             this.txtSoluong.Text = "0";
@@ -270,7 +272,7 @@
             this.iconIML.Images.SetKeyName(1, "trang.png");
             this.iconIML.Images.SetKeyName(2, "xam.png");
             // 
-            // formBai4
+            // DemCuuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -278,8 +280,8 @@
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "formBai4";
-            this.Text = "Lấy thông số cừu xuất chuồng";
+            this.Name = "DemCuuForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DemCuuForm_FormClosed);
             this.Load += new System.EventHandler(this.formBai4_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
