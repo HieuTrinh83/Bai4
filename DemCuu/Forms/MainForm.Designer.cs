@@ -31,6 +31,14 @@ namespace DemCuu.Forms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lvDonDatHang = new System.Windows.Forms.ListView();
@@ -52,19 +60,24 @@ namespace DemCuu.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.btnChayDonHang = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnReport = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::DemCuu.Properties.Resources.logo_baoan;
-            this.pictureBox2.Location = new System.Drawing.Point(706, 0);
+            this.pictureBox2.Location = new System.Drawing.Point(707, 0);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(107, 50);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -94,7 +107,7 @@ namespace DemCuu.Forms
             this.lvDonDatHang.HideSelection = false;
             this.lvDonDatHang.Location = new System.Drawing.Point(6, 19);
             this.lvDonDatHang.Name = "lvDonDatHang";
-            this.lvDonDatHang.Size = new System.Drawing.Size(519, 267);
+            this.lvDonDatHang.Size = new System.Drawing.Size(520, 267);
             this.lvDonDatHang.TabIndex = 2;
             this.lvDonDatHang.UseCompatibleStateImageBehavior = false;
             this.lvDonDatHang.View = System.Windows.Forms.View.Details;
@@ -127,9 +140,9 @@ namespace DemCuu.Forms
             // 
             this.groupBox1.Controls.Add(this.lvDonDatHang);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(271, 69);
+            this.groupBox1.Location = new System.Drawing.Point(271, 56);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(531, 292);
+            this.groupBox1.Size = new System.Drawing.Size(532, 292);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Danh sách đặt hàng";
@@ -145,7 +158,7 @@ namespace DemCuu.Forms
             this.groupBox2.Controls.Add(this.txtTen);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.ForeColor = System.Drawing.Color.White;
-            this.groupBox2.Location = new System.Drawing.Point(12, 69);
+            this.groupBox2.Location = new System.Drawing.Point(12, 56);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(253, 213);
             this.groupBox2.TabIndex = 4;
@@ -254,10 +267,10 @@ namespace DemCuu.Forms
             this.btnChayDonHang.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnChayDonHang.ImageIndex = 2;
             this.btnChayDonHang.ImageList = this.imageList1;
-            this.btnChayDonHang.Location = new System.Drawing.Point(10, 19);
+            this.btnChayDonHang.Location = new System.Drawing.Point(63, 19);
             this.btnChayDonHang.Name = "btnChayDonHang";
             this.btnChayDonHang.Padding = new System.Windows.Forms.Padding(5, 0, 6, 0);
-            this.btnChayDonHang.Size = new System.Drawing.Size(109, 39);
+            this.btnChayDonHang.Size = new System.Drawing.Size(133, 39);
             this.btnChayDonHang.TabIndex = 5;
             this.btnChayDonHang.Text = "Run";
             this.btnChayDonHang.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -266,37 +279,82 @@ namespace DemCuu.Forms
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnReport);
             this.groupBox3.Controls.Add(this.btnChayDonHang);
-            this.groupBox3.Location = new System.Drawing.Point(12, 289);
+            this.groupBox3.Location = new System.Drawing.Point(12, 276);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(253, 72);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             // 
-            // btnReport
+            // groupBox4
             // 
-            this.btnReport.BackColor = System.Drawing.Color.Gray;
-            this.btnReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
-            this.btnReport.ForeColor = System.Drawing.Color.White;
-            this.btnReport.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnReport.ImageIndex = 3;
-            this.btnReport.ImageList = this.imageList1;
-            this.btnReport.Location = new System.Drawing.Point(148, 20);
-            this.btnReport.Name = "btnReport";
-            this.btnReport.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.btnReport.Size = new System.Drawing.Size(89, 38);
-            this.btnReport.TabIndex = 6;
-            this.btnReport.Text = "report";
-            this.btnReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReport.UseVisualStyleBackColor = false;
+            this.groupBox4.Controls.Add(this.chart2);
+            this.groupBox4.Controls.Add(this.chart1);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.ForeColor = System.Drawing.Color.White;
+            this.groupBox4.Location = new System.Drawing.Point(12, 355);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(791, 249);
+            this.groupBox4.TabIndex = 7;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Báo cáo";
+            // 
+            // chart1
+            // 
+            this.chart1.BackColor = System.Drawing.Color.YellowGreen;
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(6, 17);
+            this.chart1.Name = "chart1";
+            series2.ChartArea = "ChartArea1";
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.Name = "dataChart1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(477, 224);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            title2.Name = "Title1";
+            title2.Text = "Số cừu mỗi 10 giây";
+            this.chart1.Titles.Add(title2);
+            // 
+            // chart2
+            // 
+            this.chart2.BackColor = System.Drawing.Color.YellowGreen;
+            chartArea1.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart2.Legends.Add(legend1);
+            this.chart2.Location = new System.Drawing.Point(489, 17);
+            this.chart2.Name = "chart2";
+            this.chart2.PaletteCustomColors = new System.Drawing.Color[] {
+        System.Drawing.Color.White,
+        System.Drawing.Color.Black,
+        System.Drawing.Color.Gray};
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "pieSeries";
+            this.chart2.Series.Add(series1);
+            this.chart2.Size = new System.Drawing.Size(296, 224);
+            this.chart2.TabIndex = 1;
+            this.chart2.Text = "chart2";
+            title1.BackColor = System.Drawing.Color.Transparent;
+            title1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            title1.Name = "Title1";
+            title1.Text = "Tỷ lệ cừu";
+            this.chart2.Titles.Add(title1);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(814, 373);
+            this.ClientSize = new System.Drawing.Size(815, 616);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -305,12 +363,16 @@ namespace DemCuu.Forms
             this.Name = "MainForm";
             this.Text = "Giao diện chính";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -338,6 +400,8 @@ namespace DemCuu.Forms
         private System.Windows.Forms.ColumnHeader columnHeader;
         private System.Windows.Forms.Button btnChayDonHang;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button btnReport;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }

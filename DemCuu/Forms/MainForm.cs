@@ -14,6 +14,10 @@ namespace DemCuu.Forms
 
         private List<DonHang> donHangs = new List<DonHang>();
         private bool isChayDonHang = false;
+        private int totalSheep = 0;
+        private int startMinute = 0;
+
+        System.Windows.Forms.Timer chartTimer = new System.Windows.Forms.Timer();
 
         public MainForm()
         {
@@ -121,6 +125,9 @@ namespace DemCuu.Forms
                         lvItem.SubItems[4].Text = item.getStatusName;
                         processingForm.Show();
                         SetRunningBtn();
+                        startMinute = DateTime.Now.Minute;
+                        
+                        chartTimer.Start();
                         break;
                     }
                 }
@@ -171,6 +178,28 @@ namespace DemCuu.Forms
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            chartTimer.Interval = 10*1000;
+            chartTimer.Tick += ChartTimer_Tick;
+            chart2.Series["pieSeries"].IsValueShownAsLabel = true;
+        }
+
+        private void ChartTimer_Tick(object sender, EventArgs e)
+        {
+            chart1.Series["dataChart1"].Points.AddXY(startMinute, currentDonHang.dsSheep.Count - totalSheep);
+            totalSheep = currentDonHang.dsSheep.Count;
+            startMinute++;
+
+            chart2.Series["pieSeries"].Points.Clear();
+            //black
+            chart2.Series["pieSeries"].Points.AddXY("đen",currentDonHang.dsSheep.Where(o => o.ColorIdx == 0).Count()); 
+            //white
+            chart2.Series["pieSeries"].Points.AddXY("trắng",currentDonHang.dsSheep.Where(o => o.ColorIdx == 1).Count()); 
+            //gray
+            chart2.Series["pieSeries"].Points.AddXY("xám",currentDonHang.dsSheep.Where(o => o.ColorIdx == 2).Count()); 
         }
     }
 }
