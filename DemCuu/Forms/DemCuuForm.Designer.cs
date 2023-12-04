@@ -77,7 +77,7 @@
             // 
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStop.ForeColor = System.Drawing.Color.Black;
-            this.btnStop.Location = new System.Drawing.Point(212, 15);
+            this.btnStop.Location = new System.Drawing.Point(282, 17);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 4;
@@ -88,7 +88,7 @@
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(131, 15);
+            this.btnStart.Location = new System.Drawing.Point(201, 17);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 2;
@@ -100,7 +100,7 @@
             // 
             this.txtSoluong.Enabled = false;
             this.txtSoluong.ForeColor = System.Drawing.Color.Blue;
-            this.txtSoluong.Location = new System.Drawing.Point(62, 17);
+            this.txtSoluong.Location = new System.Drawing.Point(129, 19);
             this.txtSoluong.Name = "txtSoluong";
             this.txtSoluong.ReadOnly = true;
             this.txtSoluong.Size = new System.Drawing.Size(63, 20);
@@ -110,11 +110,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 20);
+            this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.Size = new System.Drawing.Size(117, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Số lượng";
+            this.label1.Text = "Số lượng cần thực hiện";
             // 
             // groupBox2
             // 
