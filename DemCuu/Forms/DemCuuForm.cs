@@ -136,12 +136,15 @@ namespace DemCuu.Forms
                         {
                             case WHITE_IDX:
                                 dsWhite.Add(sheep);
+                                MainForm.whiteSheepCounter++;
                                 break;
                             case BLACK_IDX:
                                 dsBlack.Add(sheep);
+                                MainForm.blackSheepCounter++;
                                 break;
                             case GRAY_IDX:
                                 dsGray.Add(sheep);
+                                MainForm.graySheepCounter++;
                                 break;
                             default:
                                 break;
@@ -149,6 +152,7 @@ namespace DemCuu.Forms
 
                         //Lưu thông tin cừu vào danh sách tổng
                         MainForm.currentDonHang.dsSheep.Add(sheep);
+                        MainForm.nextBarChartValue++;
                         dsSheep.Add(sheep);
 
                         //Đẩy thông tin cừu vào ListViewItem

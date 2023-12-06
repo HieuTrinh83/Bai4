@@ -36,7 +36,6 @@
             this.txtSoluong = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.pbSheepColor = new System.Windows.Forms.PictureBox();
             this.lblKhoiLuongLong = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblKhoiLuong = new System.Windows.Forms.Label();
@@ -54,10 +53,11 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.iconIML = new System.Windows.Forms.ImageList(this.components);
+            this.pbSheepColor = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -131,14 +131,6 @@
             this.groupBox2.Size = new System.Drawing.Size(791, 48);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            // 
-            // pbSheepColor
-            // 
-            this.pbSheepColor.Location = new System.Drawing.Point(146, 19);
-            this.pbSheepColor.Name = "pbSheepColor";
-            this.pbSheepColor.Size = new System.Drawing.Size(30, 18);
-            this.pbSheepColor.TabIndex = 9;
-            this.pbSheepColor.TabStop = false;
             // 
             // lblKhoiLuongLong
             // 
@@ -271,6 +263,15 @@
             this.iconIML.Images.SetKeyName(0, "den.png");
             this.iconIML.Images.SetKeyName(1, "trang.png");
             this.iconIML.Images.SetKeyName(2, "xam.png");
+            this.iconIML.Images.SetKeyName(3, "small_sheep.gif");
+            // 
+            // pbSheepColor
+            // 
+            this.pbSheepColor.Location = new System.Drawing.Point(146, 19);
+            this.pbSheepColor.Name = "pbSheepColor";
+            this.pbSheepColor.Size = new System.Drawing.Size(30, 18);
+            this.pbSheepColor.TabIndex = 9;
+            this.pbSheepColor.TabStop = false;
             // 
             // DemCuuForm
             // 
@@ -287,8 +288,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).EndInit();
             this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).EndInit();
             this.ResumeLayout(false);
 
         }

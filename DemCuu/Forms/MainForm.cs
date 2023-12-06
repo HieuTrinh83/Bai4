@@ -11,13 +11,17 @@ namespace DemCuu.Forms
     public partial class MainForm : Form
     {
         public static DonHang currentDonHang = null;
+        public static int nextBarChartValue = 0;
+        public static int blackSheepCounter = 0;
+        public static int whiteSheepCounter = 0;
+        public static int graySheepCounter = 0;
 
         private List<DonHang> donHangs = new List<DonHang>();
         private bool isChayDonHang = false;
-        private int totalSheep = 0;
         private int startMinute = 0;
 
-        System.Windows.Forms.Timer chartTimer = new System.Windows.Forms.Timer();
+
+        Timer chartTimer = new Timer();
 
         public MainForm()
         {
@@ -125,8 +129,6 @@ namespace DemCuu.Forms
                         lvItem.SubItems[4].Text = item.getStatusName;
                         processingForm.Show();
                         SetRunningBtn();
-                        startMinute = DateTime.Now.Minute;
-                        
                         chartTimer.Start();
                         break;
                     }
@@ -146,6 +148,7 @@ namespace DemCuu.Forms
                 ((Form)sender).FormClosed -= demCuuFormClosed;
                 var currentItem = lvDonDatHang.FindItemWithText(currentDonHang.Stt.ToString());
                 currentItem.SubItems[4].Text = currentDonHang.getStatusName;
+
                 ResetRunBtn();
             }
             catch (Exception ex) {
@@ -182,24 +185,33 @@ namespace DemCuu.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            startMinute = DateTime.Now.Minute;
+
             chartTimer.Interval = 10*1000;
             chartTimer.Tick += ChartTimer_Tick;
-            chart2.Series["pieSeries"].IsValueShownAsLabel = true;
+            //chart2.Series["pieSeries"].IsValueShownAsLabel = true;
         }
 
         private void ChartTimer_Tick(object sender, EventArgs e)
         {
-            chart1.Series["dataChart1"].Points.AddXY(startMinute, currentDonHang.dsSheep.Count - totalSheep);
-            totalSheep = currentDonHang.dsSheep.Count;
+            chart1.Series["dataChart1"].Points.AddXY(startMinute, nextBarChartValue);
+            nextBarChartValue = 0;
             startMinute++;
+
 
             chart2.Series["pieSeries"].Points.Clear();
             //black
-            chart2.Series["pieSeries"].Points.AddXY("đen",currentDonHang.dsSheep.Where(o => o.ColorIdx == 0).Count()); 
+            chart2.Series["pieSeries"].Points.AddXY("đen", blackSheepCounter);
+            chart2.Series["pieSeries"].Points[0].Color = Color.Black;
+
             //white
-            chart2.Series["pieSeries"].Points.AddXY("trắng",currentDonHang.dsSheep.Where(o => o.ColorIdx == 1).Count()); 
+            chart2.Series["pieSeries"].Points.AddXY("trắng", whiteSheepCounter);
+            chart2.Series["pieSeries"].Points[1].Color = Color.White;
+
             //gray
-            chart2.Series["pieSeries"].Points.AddXY("xám",currentDonHang.dsSheep.Where(o => o.ColorIdx == 2).Count()); 
+            chart2.Series["pieSeries"].Points.AddXY("xám", graySheepCounter);
+            chart2.Series["pieSeries"].Points[2].Color = Color.Gray;
+
         }
     }
 }
