@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -15,7 +14,7 @@ namespace DemCuu.Forms
     {
         System.Windows.Forms.Timer saveFileTimer = new System.Windows.Forms.Timer();
 
-        Thread thrdDemCuu;
+        public static Thread thrdDemCuu = null;
         private Random r;
         private bool isPlaying = false;
         private const int BLACK_IDX = 0;
@@ -54,6 +53,27 @@ namespace DemCuu.Forms
             saveFileTimer.Start();
         }
 
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            isPlaying = false;
+            btnStart.Enabled = true;
+            btnStop.Enabled = false;
+
+            dongForm();
+        }
+
+        private void dongForm()
+        {
+            saveFileTimer.Stop();
+            LuuThongTin();
+
+            if (thrdDemCuu != null)
+            {
+                thrdDemCuu.Abort(null);
+                thrdDemCuu = null;
+            }
+        }
+
         private void formBai4_Load(object sender, EventArgs e)
         {
             txtSoluong.Text = (MainForm.currentDonHang.SoLuong - MainForm.currentDonHang.dsSheep.Count).ToString();
@@ -68,38 +88,7 @@ namespace DemCuu.Forms
 
         private void SaveFileTimer_Tick(object sender, EventArgs e)
         {
-            var now = DateTime.Now;
-            //Thư mục chạy
-            var currentDirectory = Directory.GetCurrentDirectory();
-            var junkName = $"{now.Year}{now.Month}{now.Day}{now.Hour}{now.Minute}{now.Second}";
-
-            //Thư mục cần lưu file
-            var destinationDir = $"{currentDirectory}/{junkName}";
-
-            try
-            {
-                //Tạo thư mục nếu chưa tồn tại
-                if (!Directory.Exists(destinationDir))
-                {
-                    Directory.CreateDirectory(destinationDir);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            //Danh sách tên các file Excel cần phải lưu
-            var fileNameWhiteSheep = $"{destinationDir}/white.xlsx";
-            var fileNameBlackSheep = $"{destinationDir}/black.xlsx";
-            var fileNameGraySheep = $"{destinationDir}/gray.xlsx";
-            var fileNameTotalSheep = $"{destinationDir}/total.xlsx";
-
-            //Lưu file
-            LuuExcel(fileNameWhiteSheep, dsWhite);
-            LuuExcel(fileNameBlackSheep, dsBlack);
-            LuuExcel(fileNameGraySheep, dsGray);
-            LuuExcel(fileNameTotalSheep, dsSheep);
+            LuuThongTin();
         }
 
         /// <summary>
@@ -205,15 +194,39 @@ namespace DemCuu.Forms
             
         }
 
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            btnStart.Enabled = true;
-            btnStop.Enabled = false;
-            if(thrdDemCuu != null)
+        private void LuuThongTin() {
+            var now = DateTime.Now;
+            //Thư mục chạy
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var junkName = $"{MainForm.currentDonHang.TenKhachHang} {now.Year}-{now.Month}-{now.Day}  {now.Hour}-{now.Minute}-{now.Second}";
+
+            //Thư mục cần lưu file
+            var destinationDir = $"{currentDirectory}/{junkName}";
+
+            try
             {
-                thrdDemCuu.Abort(100);
-                thrdDemCuu = null;
+                //Tạo thư mục nếu chưa tồn tại
+                if (!Directory.Exists(destinationDir))
+                {
+                    Directory.CreateDirectory(destinationDir);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            //Danh sách tên các file Excel cần phải lưu
+            var fileNameWhiteSheep = $"{destinationDir}/white.xlsx";
+            var fileNameBlackSheep = $"{destinationDir}/black.xlsx";
+            var fileNameGraySheep = $"{destinationDir}/gray.xlsx";
+            var fileNameTotalSheep = $"{destinationDir}/total.xlsx";
+
+            //Lưu file
+            LuuExcel(fileNameWhiteSheep, dsWhite);
+            LuuExcel(fileNameBlackSheep, dsBlack);
+            LuuExcel(fileNameGraySheep, dsGray);
+            LuuExcel(fileNameTotalSheep, dsSheep);
         }
 
         /// <summary>
@@ -290,13 +303,9 @@ namespace DemCuu.Forms
             }
         }
 
-        private void DemCuuForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void DemCuuForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(thrdDemCuu != null)
-            {
-                thrdDemCuu.Abort(100);
-                thrdDemCuu = null;
-            }
+            dongForm();
         }
     }
 }

@@ -36,6 +36,7 @@
             this.txtSoluong = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pbSheepColor = new System.Windows.Forms.PictureBox();
             this.lblKhoiLuongLong = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblKhoiLuong = new System.Windows.Forms.Label();
@@ -53,11 +54,10 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.iconIML = new System.Windows.Forms.ImageList(this.components);
-            this.pbSheepColor = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -131,6 +131,14 @@
             this.groupBox2.Size = new System.Drawing.Size(791, 48);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
+            // 
+            // pbSheepColor
+            // 
+            this.pbSheepColor.Location = new System.Drawing.Point(146, 19);
+            this.pbSheepColor.Name = "pbSheepColor";
+            this.pbSheepColor.Size = new System.Drawing.Size(30, 18);
+            this.pbSheepColor.TabIndex = 9;
+            this.pbSheepColor.TabStop = false;
             // 
             // lblKhoiLuongLong
             // 
@@ -265,14 +273,6 @@
             this.iconIML.Images.SetKeyName(2, "xam.png");
             this.iconIML.Images.SetKeyName(3, "small_sheep.gif");
             // 
-            // pbSheepColor
-            // 
-            this.pbSheepColor.Location = new System.Drawing.Point(146, 19);
-            this.pbSheepColor.Name = "pbSheepColor";
-            this.pbSheepColor.Size = new System.Drawing.Size(30, 18);
-            this.pbSheepColor.TabIndex = 9;
-            this.pbSheepColor.TabStop = false;
-            // 
             // DemCuuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,14 +282,14 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "DemCuuForm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DemCuuForm_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DemCuuForm_FormClosing);
             this.Load += new System.EventHandler(this.formBai4_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
