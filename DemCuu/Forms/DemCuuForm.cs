@@ -212,7 +212,7 @@ namespace DemCuu.Forms
             if(thrdDemCuu != null)
             {
                 thrdDemCuu.Abort(100);
-                thrdDemCuu.Join();
+                thrdDemCuu = null;
             }
         }
 
@@ -295,6 +295,7 @@ namespace DemCuu.Forms
             if(thrdDemCuu != null)
             {
                 thrdDemCuu.Abort(100);
+                thrdDemCuu = null;
             }
         }
     }

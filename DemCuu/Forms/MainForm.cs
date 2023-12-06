@@ -187,9 +187,8 @@ namespace DemCuu.Forms
         {
             startMinute = DateTime.Now.Minute;
 
-            chartTimer.Interval = 10*1000;
+            chartTimer.Interval = 20*1000;
             chartTimer.Tick += ChartTimer_Tick;
-            //chart2.Series["pieSeries"].IsValueShownAsLabel = true;
         }
 
         private void ChartTimer_Tick(object sender, EventArgs e)
