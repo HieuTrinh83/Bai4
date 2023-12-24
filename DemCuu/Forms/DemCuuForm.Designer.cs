@@ -54,10 +54,14 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.iconIML = new System.Windows.Forms.ImageList(this.components);
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.pbSheepMoving = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSheepMoving)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -69,7 +73,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(791, 53);
+            this.groupBox1.Size = new System.Drawing.Size(433, 63);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -77,7 +81,7 @@
             // 
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStop.ForeColor = System.Drawing.Color.Black;
-            this.btnStop.Location = new System.Drawing.Point(282, 17);
+            this.btnStop.Location = new System.Drawing.Point(212, 19);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(75, 23);
             this.btnStop.TabIndex = 4;
@@ -88,7 +92,7 @@
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(201, 17);
+            this.btnStart.Location = new System.Drawing.Point(131, 19);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(75, 23);
             this.btnStart.TabIndex = 2;
@@ -100,7 +104,7 @@
             // 
             this.txtSoluong.Enabled = false;
             this.txtSoluong.ForeColor = System.Drawing.Color.Blue;
-            this.txtSoluong.Location = new System.Drawing.Point(129, 19);
+            this.txtSoluong.Location = new System.Drawing.Point(62, 21);
             this.txtSoluong.Name = "txtSoluong";
             this.txtSoluong.ReadOnly = true;
             this.txtSoluong.Size = new System.Drawing.Size(63, 20);
@@ -110,7 +114,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Location = new System.Drawing.Point(7, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(117, 13);
             this.label1.TabIndex = 0;
@@ -126,9 +130,9 @@
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.lblStt);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(12, 71);
+            this.groupBox2.Location = new System.Drawing.Point(12, 81);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(791, 48);
+            this.groupBox2.Size = new System.Drawing.Size(433, 48);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
@@ -143,7 +147,7 @@
             // lblKhoiLuongLong
             // 
             this.lblKhoiLuongLong.AutoSize = true;
-            this.lblKhoiLuongLong.Location = new System.Drawing.Point(420, 20);
+            this.lblKhoiLuongLong.Location = new System.Drawing.Point(393, 20);
             this.lblKhoiLuongLong.Name = "lblKhoiLuongLong";
             this.lblKhoiLuongLong.Size = new System.Drawing.Size(0, 13);
             this.lblKhoiLuongLong.TabIndex = 8;
@@ -151,7 +155,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(330, 20);
+            this.label3.Location = new System.Drawing.Point(304, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 13);
             this.label3.TabIndex = 7;
@@ -203,9 +207,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.lvSheepsDetail);
-            this.groupBox3.Location = new System.Drawing.Point(12, 125);
+            this.groupBox3.Location = new System.Drawing.Point(12, 135);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(794, 313);
+            this.groupBox3.Size = new System.Drawing.Size(825, 313);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
@@ -225,7 +229,7 @@
             this.lvSheepsDetail.HideSelection = false;
             this.lvSheepsDetail.Location = new System.Drawing.Point(3, 16);
             this.lvSheepsDetail.Name = "lvSheepsDetail";
-            this.lvSheepsDetail.Size = new System.Drawing.Size(788, 294);
+            this.lvSheepsDetail.Size = new System.Drawing.Size(819, 294);
             this.lvSheepsDetail.TabIndex = 0;
             this.lvSheepsDetail.UseCompatibleStateImageBehavior = false;
             this.lvSheepsDetail.View = System.Windows.Forms.View.Details;
@@ -262,7 +266,7 @@
             // columnHeader7
             // 
             this.columnHeader7.Text = "Thời lượng";
-            this.columnHeader7.Width = 70;
+            this.columnHeader7.Width = 89;
             // 
             // iconIML
             // 
@@ -273,11 +277,30 @@
             this.iconIML.Images.SetKeyName(2, "xam.png");
             this.iconIML.Images.SetKeyName(3, "small_sheep.gif");
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.pbSheepMoving);
+            this.groupBox4.Location = new System.Drawing.Point(451, 12);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(383, 117);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            // 
+            // pbSheepMoving
+            // 
+            this.pbSheepMoving.Image = global::DemCuu.Properties.Resources.cuu;
+            this.pbSheepMoving.Location = new System.Drawing.Point(6, 12);
+            this.pbSheepMoving.Name = "pbSheepMoving";
+            this.pbSheepMoving.Size = new System.Drawing.Size(131, 99);
+            this.pbSheepMoving.TabIndex = 0;
+            this.pbSheepMoving.TabStop = false;
+            // 
             // DemCuuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(818, 450);
+            this.ClientSize = new System.Drawing.Size(849, 460);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -290,6 +313,8 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).EndInit();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbSheepMoving)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -320,6 +345,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.PictureBox pbSheepMoving;
     }
 }
 

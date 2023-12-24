@@ -13,6 +13,7 @@ namespace DemCuu.Forms
     public partial class DemCuuForm : Form
     {
         System.Windows.Forms.Timer saveFileTimer = new System.Windows.Forms.Timer();
+        System.Windows.Forms.Timer tempTimer;
 
         public static Thread thrdDemCuu = null;
         private Random r;
@@ -20,6 +21,8 @@ namespace DemCuu.Forms
         private const int BLACK_IDX = 0;
         private const int WHITE_IDX = 1;
         private const int GRAY_IDX = 2;
+        private const int SHEEP_ROAD_LENGTH = 387;
+
 
         // Danh sách màu cừu
         private List<Color> dsColor = new List<Color> { Color.FromArgb(0,0,0), Color.FromArgb(255,255,255), Color.Gray };
@@ -173,8 +176,20 @@ namespace DemCuu.Forms
                         }
                         dem++;
 
+                        //Play sheep animation
+                        var sheepThrd = new Thread(new ParameterizedThreadStart(SheepMoving));
+                        sheepThrd.Start(new SheepMoObj { Duration = 387 });
+
                         //Đây là fake thời gian để chuyển cừu lên xe, sẽ có thay đổi trong bài toán thật sự khi làm việc vói các sensor
                         Thread.Sleep(tgDem * 1000);
+                        try
+                        {
+                            sheepThrd.Abort();
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
                     }
 
                     //Thông báo hoàn thành đơn hàng
@@ -192,6 +207,21 @@ namespace DemCuu.Forms
                 MessageBox.Show(ex.Message);
             }
             
+        }
+
+        private void SheepMoving(object obj)
+        {
+            var sheepObj = (SheepMoObj)obj;
+            tempTimer = new System.Windows.Forms.Timer();
+            tempTimer.Interval = 200;
+            tempTimer.Tick += (s, args) => SheepTimer_Tick(sheepObj);
+
+        }
+
+        private void SheepTimer_Tick(SheepMoObj obj)
+        {
+
+            throw new NotImplementedException();
         }
 
         private void LuuThongTin() {
@@ -303,9 +333,18 @@ namespace DemCuu.Forms
             }
         }
 
-        private void DemCuuForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void DemCuuForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            dongForm();
+            if(thrdDemCuu != null)
+            {
+                thrdDemCuu.Abort(100);
+            }
         }
+
+    }
+
+    public class SheepMoObj
+    {
+        public int Duration;
     }
 }
