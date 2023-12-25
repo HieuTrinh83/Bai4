@@ -114,7 +114,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\gif\moving_sheep.gif" />
     <Content Include="Resources\icons\icons8-combo-chart-96.png" />
     <Content Include="Resources\icons\icons8-computer-60.png" />
     <Content Include="Resources\icons\icons8-create-24.png" />
@@ -126,6 +125,9 @@
     <Content Include="Resources\images\xam.png" />
     <Content Include="Resources\logos\lg_logo.png" />
     <Content Include="Resources\logos\logo_baoan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\gif\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -39,6 +39,7 @@ namespace DemCuu.Forms
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
             r = new Random();
+            pbSheep.BackColor = Color.Transparent;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -71,8 +72,15 @@ namespace DemCuu.Forms
 
             if (thrdDemCuu != null)
             {
-                thrdDemCuu.Abort(null);
-                thrdDemCuu = null;
+                try
+                {
+                    thrdDemCuu.Abort();
+                    thrdDemCuu = null;
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 
@@ -86,6 +94,7 @@ namespace DemCuu.Forms
 
             //Thiết lập handler cho timer
             saveFileTimer.Tick += SaveFileTimer_Tick;
+
         }
 
         private void SaveFileTimer_Tick(object sender, EventArgs e)
@@ -208,24 +217,24 @@ namespace DemCuu.Forms
                 switch (tgDem)
                 {
                     case 1:
-                        Thread.Sleep(7);
                         pbSheep.Location = new Point(pbSheep.Location.X + 4, pbSheep.Location.Y);
+                        Thread.Sleep(7);
                         break;
                     case 2:
-                        Thread.Sleep(5);
                         pbSheep.Location = new Point(pbSheep.Location.X + 2, pbSheep.Location.Y);
+                        Thread.Sleep(6);
                         break;
                     case 3:
-                        Thread.Sleep(13);
                         pbSheep.Location = new Point(pbSheep.Location.X + 2, pbSheep.Location.Y);
+                        Thread.Sleep(9);
                         break;
                     case 4:
-                        Thread.Sleep(8);
                         pbSheep.Location = new Point(pbSheep.Location.X + 1, pbSheep.Location.Y);
+                        Thread.Sleep(7);
                         break;
                     case 5:
-                        Thread.Sleep(12);
                         pbSheep.Location = new Point(pbSheep.Location.X + 1, pbSheep.Location.Y);
+                        Thread.Sleep(8);
                         break;
                     default:
                         break;
