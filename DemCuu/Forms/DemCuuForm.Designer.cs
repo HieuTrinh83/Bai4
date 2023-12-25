@@ -54,10 +54,16 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.iconIML = new System.Windows.Forms.ImageList(this.components);
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbSheep = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSheep)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -69,7 +75,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(791, 53);
+            this.groupBox1.Size = new System.Drawing.Size(466, 53);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -128,7 +134,7 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(12, 71);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(791, 48);
+            this.groupBox2.Size = new System.Drawing.Size(466, 48);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
@@ -151,7 +157,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(330, 20);
+            this.label3.Location = new System.Drawing.Point(317, 20);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(83, 13);
             this.label3.TabIndex = 7;
@@ -205,7 +211,7 @@
             this.groupBox3.Controls.Add(this.lvSheepsDetail);
             this.groupBox3.Location = new System.Drawing.Point(12, 125);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(794, 313);
+            this.groupBox3.Size = new System.Drawing.Size(879, 313);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
@@ -225,7 +231,7 @@
             this.lvSheepsDetail.HideSelection = false;
             this.lvSheepsDetail.Location = new System.Drawing.Point(3, 16);
             this.lvSheepsDetail.Name = "lvSheepsDetail";
-            this.lvSheepsDetail.Size = new System.Drawing.Size(788, 294);
+            this.lvSheepsDetail.Size = new System.Drawing.Size(873, 294);
             this.lvSheepsDetail.TabIndex = 0;
             this.lvSheepsDetail.UseCompatibleStateImageBehavior = false;
             this.lvSheepsDetail.View = System.Windows.Forms.View.Details;
@@ -271,13 +277,43 @@
             this.iconIML.Images.SetKeyName(0, "den.png");
             this.iconIML.Images.SetKeyName(1, "trang.png");
             this.iconIML.Images.SetKeyName(2, "xam.png");
-            this.iconIML.Images.SetKeyName(3, "small_sheep.gif");
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.pictureBox2);
+            this.groupBox4.Controls.Add(this.pbSheep);
+            this.groupBox4.Location = new System.Drawing.Point(484, 12);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(404, 107);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.InitialImage = null;
+            this.pictureBox2.Location = new System.Drawing.Point(271, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(133, 89);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 1;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pbSheep
+            // 
+            this.pbSheep.Image = ((System.Drawing.Image)(resources.GetObject("pbSheep.Image")));
+            this.pbSheep.Location = new System.Drawing.Point(0, 33);
+            this.pbSheep.Name = "pbSheep";
+            this.pbSheep.Size = new System.Drawing.Size(70, 63);
+            this.pbSheep.TabIndex = 0;
+            this.pbSheep.TabStop = false;
             // 
             // DemCuuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(818, 450);
+            this.ClientSize = new System.Drawing.Size(903, 450);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -290,6 +326,9 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSheepColor)).EndInit();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbSheep)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -320,6 +359,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.PictureBox pbSheep;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 

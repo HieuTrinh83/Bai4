@@ -214,6 +214,7 @@ namespace DemCuu.Forms
             this.txtSoDienThoai.Name = "txtSoDienThoai";
             this.txtSoDienThoai.Size = new System.Drawing.Size(142, 20);
             this.txtSoDienThoai.TabIndex = 3;
+            this.txtSoDienThoai.Text = "0989648239";
             // 
             // label3
             // 
@@ -231,6 +232,7 @@ namespace DemCuu.Forms
             this.txtSoLuong.Name = "txtSoLuong";
             this.txtSoLuong.Size = new System.Drawing.Size(142, 20);
             this.txtSoLuong.TabIndex = 2;
+            this.txtSoLuong.Text = "100";
             // 
             // label2
             // 
@@ -248,6 +250,7 @@ namespace DemCuu.Forms
             this.txtTen.Name = "txtTen";
             this.txtTen.Size = new System.Drawing.Size(142, 20);
             this.txtTen.TabIndex = 1;
+            this.txtTen.Text = "hieutq";
             // 
             // label1
             // 

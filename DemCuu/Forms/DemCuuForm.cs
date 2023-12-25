@@ -21,6 +21,8 @@ namespace DemCuu.Forms
         private const int WHITE_IDX = 1;
         private const int GRAY_IDX = 2;
 
+        private Thread sheepAnimationThrd = null;
+
         // Danh sách màu cừu
         private List<Color> dsColor = new List<Color> { Color.FromArgb(0,0,0), Color.FromArgb(255,255,255), Color.Gray };
 
@@ -173,12 +175,17 @@ namespace DemCuu.Forms
                         }
                         dem++;
 
-                        //Đây là fake thời gian để chuyển cừu lên xe, sẽ có thay đổi trong bài toán thật sự khi làm việc vói các sensor
-                        Thread.Sleep(tgDem * 1000);
+                        sheepAnimationThrd = new Thread(() => invokeSheepAnimation(tgDem));
+                        sheepAnimationThrd.Start();
+                        sheepAnimationThrd.Join(tgDem * 1000);
+
+                        sheepAnimationThrd.Abort();
+                        pbSheep.Location = new Point(0, pbSheep.Location.Y);
+
                     }
 
                     //Thông báo hoàn thành đơn hàng
-                    if(soLuong == dem)
+                    if (soLuong == dem)
                     {
                         MainForm.currentDonHang.Status = (int)DonHangStatus.FINISHED;
                         MessageBox.Show("Đã hoàn thành!");
@@ -193,6 +200,40 @@ namespace DemCuu.Forms
             }
             
         }
+
+        private void invokeSheepAnimation(int tgDem)
+        {
+            while (pbSheep.Location.X < 230)
+            {
+                switch (tgDem)
+                {
+                    case 1:
+                        Thread.Sleep(7);
+                        pbSheep.Location = new Point(pbSheep.Location.X + 4, pbSheep.Location.Y);
+                        break;
+                    case 2:
+                        Thread.Sleep(5);
+                        pbSheep.Location = new Point(pbSheep.Location.X + 2, pbSheep.Location.Y);
+                        break;
+                    case 3:
+                        Thread.Sleep(13);
+                        pbSheep.Location = new Point(pbSheep.Location.X + 2, pbSheep.Location.Y);
+                        break;
+                    case 4:
+                        Thread.Sleep(8);
+                        pbSheep.Location = new Point(pbSheep.Location.X + 1, pbSheep.Location.Y);
+                        break;
+                    case 5:
+                        Thread.Sleep(12);
+                        pbSheep.Location = new Point(pbSheep.Location.X + 1, pbSheep.Location.Y);
+                        break;
+                    default:
+                        break;
+                }
+                
+            }
+        }
+
 
         private void LuuThongTin() {
             var now = DateTime.Now;
