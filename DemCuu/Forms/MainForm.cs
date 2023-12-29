@@ -186,6 +186,11 @@ namespace DemCuu.Forms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            var chart1Area = chart1.ChartAreas[0];
+
+            chart1Area.AxisX.Title = "Time(s)";
+            chart1Area.AxisY.Title = "Số cừu";
+
             startMinute = DateTime.Now.Minute;
 
             chartTimer.Interval = 20*1000;

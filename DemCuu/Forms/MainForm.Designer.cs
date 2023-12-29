@@ -351,7 +351,7 @@ namespace DemCuu.Forms
             this.chart1.Text = "chart1";
             title2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             title2.Name = "Title1";
-            title2.Text = "Số cừu mỗi 10 giây";
+            title2.Text = "Số cừu mỗi 20 giây";
             this.chart1.Titles.Add(title2);
             // 
             // MainForm
