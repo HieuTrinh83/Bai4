@@ -188,7 +188,7 @@ namespace DemCuu.Forms
         {
             var chart1Area = chart1.ChartAreas[0];
 
-            chart1Area.AxisX.Title = "Time(s)";
+            chart1Area.AxisX.Title = "Time(minute)";
             chart1Area.AxisY.Title = "Số cừu";
 
             startMinute = DateTime.Now.Minute;
