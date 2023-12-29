@@ -1,6 +1,7 @@
 ﻿using DemCuu.Models;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using SqlKata.Execution;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -108,6 +109,9 @@ namespace DemCuu.Forms
         private void DemCuu()
         {
             try {
+
+                //var db = DbContext.GetQueryFactory();
+
                 //Các thông số lưu tạm thời của cừu
                 int _khoiLuong = 0;
                 int _tyLeLong = 0; 
@@ -154,6 +158,7 @@ namespace DemCuu.Forms
                         MainForm.currentDonHang.dsSheep.Add(sheep);
                         MainForm.nextBarChartValue++;
                         dsSheep.Add(sheep);
+                        //db.Query("sheep").Insert(sheep);
 
                         //Đẩy thông tin cừu vào ListViewItem
                         ListViewItem item = new ListViewItem(lblStt.Text);
@@ -163,8 +168,9 @@ namespace DemCuu.Forms
                         item.SubItems.Add(sheep.KhoiLuongLong.ToString("N2"));
                         item.SubItems.Add(sheep.Start.ToString("dd/MM/yyyy HH:mm:ss"));
                         item.SubItems.Add(sheep.End.ToString("dd/MM/yyyy HH:mm:ss"));
-                        item.SubItems.Add(sheep.ProcessTime.ToString());
+                        item.SubItems.Add((sheep.End - sheep.Start).ToString());
                         lvSheepsDetail.Items.Add(item);
+
 
                         //Do danh sách chỉ được phép hiển thị 20 con cừu được xử lý gần nhất nên ListViewItem cần phải xóa bớt
                         if (lvSheepsDetail.Items.Count > 20)
@@ -196,7 +202,7 @@ namespace DemCuu.Forms
                     //Thông báo hoàn thành đơn hàng
                     if (soLuong == dem)
                     {
-                        MainForm.currentDonHang.Status = (int)DonHangStatus.FINISHED;
+                        MainForm.currentDonHang.Status = DonHangStatus.FINISHED;
                         MessageBox.Show("Đã hoàn thành!");
                     }
                 }
@@ -333,7 +339,7 @@ namespace DemCuu.Forms
                             workSheet.Cells[idx, 4].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
                             workSheet.Cells[idx, 5].Value = item.Start.ToString("dd/MM/yyyy HH:mm:ss");
                             workSheet.Cells[idx, 6].Value = item.End.ToString("dd/MM/yyyy HH:mm:ss");
-                            workSheet.Cells[idx, 7].Value = item.ProcessTime.ToString();
+                            workSheet.Cells[idx, 7].Value = (item.End - item.Start).ToString();
                             idx++;
                         }
                         // Create File

@@ -13,7 +13,7 @@ namespace DemCuu.Models
 
         public string Phone {  get; set; }
 
-        public short Status { get; set; }
+        public DonHangStatus Status { get; set; }
 
         public int SoLuong { get; set; }
 
@@ -25,17 +25,17 @@ namespace DemCuu.Models
         {
             get
             {
-                return StatusName[this.Status];
+                return StatusName[(int)this.Status];
             }
         }
 
         public List<Sheep> dsSheep { get; set; } = new List<Sheep>();
     }
 
-    enum DonHangStatus
+    public enum DonHangStatus
     {
-        WAITING,
-        IN_PROGRESS,
-        FINISHED
+        WAITING = 0,
+        IN_PROGRESS = 1,
+        FINISHED = 2
     }
 }

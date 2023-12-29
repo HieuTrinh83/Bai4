@@ -1,5 +1,6 @@
 ﻿
 using DemCuu.Models;
+using SqlKata.Execution;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -116,7 +117,7 @@ namespace DemCuu.Forms
                 else
                 {
                     var dsWaiting = (from o in donHangs
-                                    where temp.Contains(o.Stt.ToString()) && (o.Status == (int)DonHangStatus.WAITING || o.Status == (int)DonHangStatus.IN_PROGRESS)
+                                    where temp.Contains(o.Stt.ToString()) && (o.Status == (int)DonHangStatus.WAITING || o.Status == DonHangStatus.IN_PROGRESS)
                                     select o).ToList();
                                     
                     foreach (var item in dsWaiting)
@@ -125,7 +126,7 @@ namespace DemCuu.Forms
                         var lvItem = lvDonDatHang.FindItemWithText(item.Stt.ToString());
                         DemCuuForm processingForm = new DemCuuForm();
                         processingForm.FormClosed += demCuuFormClosed;
-                        item.Status = (int)DonHangStatus.IN_PROGRESS;
+                        item.Status = DonHangStatus.IN_PROGRESS;
                         lvItem.SubItems[4].Text = item.getStatusName;
                         processingForm.Show();
                         SetRunningBtn();

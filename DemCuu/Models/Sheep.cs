@@ -30,12 +30,5 @@ namespace DemCuu.Models
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
-
-        public TimeSpan ProcessTime { 
-            get {
-                return End - Start;
-            } 
-        }
-
     }
 }
